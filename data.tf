@@ -22,39 +22,31 @@ data "vsphere_datastore" "datastore" {
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
-data "vsphere_virtual_machine" "core_template" {
-  name          = var.pce_core_template
+data "vsphere_virtual_machine" "rl8_template" {
+  name          = var.rl8_template
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
-data "vsphere_virtual_machine" "data_template" {
-  name          = var.pce_data_template
+data "vsphere_virtual_machine" "rl8_template_stig" {
+  name          = var.rl8_template_stig
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
-data "vsphere_virtual_machine" "lb_template" {
-  name          = var.lb_template
+data "vsphere_virtual_machine" "ubuntu22_template" {
+  name          = var.ubuntu22_template
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
-data "vsphere_virtual_machine" "non_stig_template" {
-  name          = var.non_stig_template
+data "vsphere_virtual_machine" "ubuntu24_template" {
+  name          = var.ubuntu24_template
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
-
-
-data "vsphere_virtual_machine" "talos_template" {
-  name          = var.talos_template
-  datacenter_id = data.vsphere_datacenter.datacenter.id
-}
-
-
 
 locals {
   os_map = {
-    pce_core = data.vsphere_virtual_machine.core_template.uuid
-    pce_data = data.vsphere_virtual_machine.data_template.uuid
-    lb       = data.vsphere_virtual_machine.lb_template.uuid
-    non_stig = data.vsphere_virtual_machine.non_stig_template.uuid
+    rl8 = data.vsphere_virtual_machine.rl8_template.uuid
+   rl8_stig = data.vsphere_virtual_machine.rl8_template_stig.uuid
+   ubuntu22 = data.vsphere_virtual_machine.ubuntu22_template.uuid
+   ubuntu24 = data.vsphere_virtual_machine.ubuntu24_template.uuid
   }
 }

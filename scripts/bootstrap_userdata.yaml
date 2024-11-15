@@ -12,6 +12,7 @@ chpasswd:
 users:
   - default
   - name: "${user}"
+    shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     groups: wheel
     passwd: "${hashed_passwd}"
@@ -22,3 +23,5 @@ users:
 runcmd:
   - [ chmod, "a+x", "/opt/script.sh" ]
   - [ bash, "-c", "/opt/script.sh", ">", "/var/log/script.log"]
+ntp:
+  servers: ${ntpservers}

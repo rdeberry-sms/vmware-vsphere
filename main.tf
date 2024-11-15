@@ -8,6 +8,7 @@ resource "vsphere_virtual_machine" "nodes" {
   enable_disk_uuid = var.disk_uuid
   num_cpus         = each.value.cpu
   memory           = each.value.memory
+  wait_for_guest_ip_timeout = -1
   disk {
     label       = var.vm_linux_disk_name
     size        = each.value.disk_size_0
@@ -33,10 +34,11 @@ resource "vsphere_virtual_machine" "nodes" {
   extra_config = {
     "guestinfo.metadata" = base64encode(templatefile("${path.module}/scripts/bootstrap_metadata.yaml", {
       ip_address = each.value.ip_address
-      netmask    = each.value.netmask
-      gateway    = each.value.gateway
-      dns_server = each.value.dns_server
+      netmask    = var.netmask
+      gateway    = var.gateway
       hostname   = each.value.name
+      dhcp = var.dhcp
+      nameservers = jsonencode(var.nameservers)
     }))
     "guestinfo.metadata.encoding" = var.encoding
     "guestinfo.userdata" = base64encode(templatefile("${path.module}/scripts/bootstrap_userdata.yaml", {
@@ -45,7 +47,10 @@ resource "vsphere_virtual_machine" "nodes" {
       hashed_passwd = htpasswd_password.user.sha512
       user          = var.user_name
       ssh_keys      = var.ssh_keys
+     ntpservers = jsonencode(var.ntpservers)
     }))
     "guestinfo.userdata.encoding" = var.encoding
   }
 }
+
+

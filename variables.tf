@@ -63,40 +63,29 @@ variable "encoding" {
   default     = "base64"
 }
 
-variable "pce_core_template" {
-  description = "PCE Core Template Name"
-  type        = string
-  default     = "pce_core_template"
-}
-variable "pce_data_template" {
+variable "rl8_template" {
   description = "PCE Data Template Name"
   type        = string
-  default     = "pce_data_template"
+  default     = "rl8_template"
 }
 
-variable "pce_core9_template" {
-  description = "PCE Core Template Name"
-  type        = string
-  default     = "pce_core9_template"
-}
-variable "pce_data9_template" {
+variable "rl8_template_stig" {
   description = "PCE Data Template Name"
   type        = string
-  default     = "pce_data9_template"
+  default     = "rl8_template_stig"
 }
 
-variable "non_stig_template" {
-  description = "PCE Data Template Name"
+variable "ubuntu22_template" {
+  description = "Data Template Name"
   type        = string
-  default     = "el8_no_stig_template"
+  default     = "ubuntu22_template"
 }
 
-variable "lb_template" {
-  description = "PCE Data Template Name"
+variable "ubuntu24_template" {
+  description = "Data Template Name"
   type        = string
-  default     = "el8_stig_template"
+  default     = "ubuntu24_template"
 }
-
 
 variable "commands" {
   type    = list(string)
@@ -130,4 +119,32 @@ variable "disk_uuid" {
   description = "The name or absolute path to the cluster"
   type        = bool
   default     = true
+}
+
+ variable "nameservers" {
+   description = "DNS servers"
+   type        = list(string)
+ }
+
+
+variable "dhcp" {
+  description = "The name or absolute path to the cluster"
+  type        = bool
+  default     = false
+}
+
+variable "ntpservers" {
+   description = "NTP servers"
+   type        = list(string)
+ }
+
+
+variable "netmask" {
+  description = "netmask"
+  type        = string
+}
+
+variable "gateway" {
+  description = "gateway"
+  type        = string
 }
